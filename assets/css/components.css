@@ -1238,6 +1238,155 @@
   .unit-calc .uc-arrow { transform: rotate(90deg); padding: 6px 0; }
 }
 
+/* === Voice feed (chapter 3-5: 顧客の声フィード 半手動) === */
+.voice-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-top: var(--space-4);
+}
+.voice-filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.voice-filter-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-subtext);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.voice-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.voice-chip {
+  background: var(--color-base);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.voice-chip:hover {
+  background: var(--color-main-soft);
+  border-color: var(--color-main);
+  color: var(--color-main);
+}
+.voice-chip.is-active {
+  background: var(--color-main);
+  border-color: var(--color-main);
+  color: #fff;
+  font-weight: 700;
+}
+.voice-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-3);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.voice-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-main);
+}
+.voice-card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+.voice-date {
+  font-family: var(--font-num);
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--color-main);
+  letter-spacing: 0.04em;
+}
+.voice-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.voice-tag-ind {
+  background: var(--color-accent-1-soft);
+  color: #B45309;
+}
+.voice-tag-iss {
+  background: var(--color-accent-3-soft);
+  color: var(--color-accent-3);
+}
+.voice-sensitive {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--color-accent-1-soft);
+  color: var(--color-accent-3);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: auto;
+  border: 1px dashed var(--color-accent-3);
+}
+.voice-summary {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: var(--space-2);
+}
+.voice-insight {
+  background: var(--color-main-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: 13px;
+  color: var(--color-main);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+.voice-card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-border);
+  font-size: 12px;
+}
+.voice-source-name {
+  color: var(--color-subtext);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 60%;
+}
+.voice-source {
+  color: var(--color-main);
+  font-weight: 700;
+  text-decoration: none;
+}
+.voice-source:hover {
+  text-decoration: underline;
+}
+@media (max-width: 600px) {
+  .voice-card-foot { flex-direction: column; align-items: flex-start; }
+  .voice-source-name { max-width: 100%; }
+}
+
 /* === Tabs (chapter3 4 issues) === */
 .tabs {
   display: flex;

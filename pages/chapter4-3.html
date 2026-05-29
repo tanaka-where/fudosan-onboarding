@@ -96,6 +96,26 @@
           </div>
         </section>
 
+        <section class="block reveal">
+          <h2>📅 顧客の声フィード <span class="badge-new">NEW</span></h2>
+          <p class="muted">Slack や Drive で集まった声を、業界×課題で分類して時系列で蓄積（半手動運用 / 新しい順）。<strong>各エントリの「🔗 元資料」は社内Drive</strong>（pntwhere.com アカウントでログイン要）。</p>
+
+          <div class="voice-controls">
+            <input id="voice-search" class="glossary-search" type="search" placeholder="🔍 要約・業界・課題で絞り込み..." />
+            <div class="voice-filter-group" data-group="industry">
+              <span class="voice-filter-label">業界:</span>
+              <span class="voice-filter-chips" id="voice-industries"></span>
+            </div>
+            <div class="voice-filter-group" data-group="issue">
+              <span class="voice-filter-label">課題:</span>
+              <span class="voice-filter-chips" id="voice-issues"></span>
+            </div>
+          </div>
+
+          <div id="voice-stats" class="muted" style="font-size:13px; margin: 8px 0 16px;"></div>
+          <div id="voice-feed"></div>
+        </section>
+
         <nav class="page-nav">
           <a class="prev" href="chapter4-2.html">&nbsp;3-4. ユースケース</a>
           <a class="next" href="glossary.html">4. 重要用語集&nbsp;</a>
@@ -106,5 +126,117 @@
 
   <script src="../assets/js/sidebar.js"></script>
   <script src="../assets/js/memo.js"></script>
+  <script>
+    // 顧客の声フィード（半手動運用版）
+    // データは ../assets/data/voices.json から fetch。Claude Code が随時 entries を追加。
+    (async function () {
+      const root = document.getElementById('voice-feed');
+      const statsEl = document.getElementById('voice-stats');
+      if (!root) return;
+
+      let data;
+      try {
+        const res = await fetch('../assets/data/voices.json', { cache: 'no-store' });
+        data = await res.json();
+      } catch (e) {
+        root.innerHTML = '<p class="muted">フィードを読み込めませんでした。</p>';
+        return;
+      }
+
+      const entries = (data.entries || []).slice();
+      const state = { kw: '', industry: 'all', issue: 'all' };
+
+      const fmtDate = (s) => {
+        if (!s) return '';
+        // ISO or YYYY-MM-DD どちらでも
+        const d = new Date(s);
+        if (isNaN(d)) return s;
+        return `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
+      };
+
+      function renderFilters() {
+        const indEl = document.getElementById('voice-industries');
+        const issEl = document.getElementById('voice-issues');
+        if (!indEl || !issEl) return;
+        const buildChips = (groupKey, allValue, list, current) => {
+          const chips = [{ label: 'すべて', value: 'all' }, ...list.map((v) => ({ label: v, value: v }))];
+          return chips.map((c) => `<button type="button" class="voice-chip ${current === c.value ? 'is-active' : ''}" data-group="${groupKey}" data-val="${c.value}">${c.label}</button>`).join('');
+        };
+        indEl.innerHTML = buildChips('industry', 'all', data.industries || [], state.industry);
+        issEl.innerHTML = buildChips('issue', 'all', data.issue_categories || [], state.issue);
+        document.querySelectorAll('.voice-chip').forEach((b) => {
+          b.addEventListener('click', () => {
+            const g = b.dataset.group;
+            state[g] = b.dataset.val;
+            renderFilters();
+            renderFeed();
+          });
+        });
+      }
+
+      function matches(e) {
+        if (state.industry !== 'all' && e.industry !== state.industry) return false;
+        if (state.issue !== 'all' && e.issue_category !== state.issue) return false;
+        if (state.kw) {
+          const k = state.kw.toLowerCase();
+          const hay = [e.voice_summary, e.insight, e.industry, e.issue_category, e.source_name].filter(Boolean).join(' ').toLowerCase();
+          if (!hay.includes(k)) return false;
+        }
+        return true;
+      }
+
+      function renderFeed() {
+        if (entries.length === 0) {
+          root.innerHTML = '<div class="callout info"><p>まだエントリがありません。Slack や Drive で「これ載せたい」声があれば Claude Code に頼んで追加してください。</p></div>';
+          if (statsEl) statsEl.textContent = '';
+          return;
+        }
+        const filtered = entries
+          .filter(matches)
+          .sort((a, b) => (b.added_at || '').localeCompare(a.added_at || ''));
+
+        if (statsEl) statsEl.textContent = `${filtered.length} 件表示中 / 全 ${entries.length} 件`;
+
+        if (filtered.length === 0) {
+          root.innerHTML = '<p class="muted">該当するエントリが見つかりませんでした。</p>';
+          return;
+        }
+        root.innerHTML = filtered.map((e) => {
+          const sensitive = e.sensitive_flag ? '<span class="voice-sensitive">⚠️ センシティブ</span>' : '';
+          const linkHtml = e.source_url
+            ? `<a class="voice-source" href="${e.source_url}" target="_blank" rel="noopener noreferrer">🔗 元資料を開く（社内Drive）</a>`
+            : '<span class="voice-source muted">元資料リンクなし</span>';
+          const sourceName = e.source_name ? `<span class="voice-source-name">${e.source_name}</span>` : '';
+          const insight = e.insight ? `<div class="voice-insight">💡 ${e.insight}</div>` : '';
+          return `
+            <article class="voice-card">
+              <header class="voice-card-head">
+                <span class="voice-date">${fmtDate(e.added_at)}</span>
+                <span class="voice-tag voice-tag-ind">${e.industry || '未分類'}</span>
+                <span class="voice-tag voice-tag-iss">${e.issue_category || '未分類'}</span>
+                ${sensitive}
+              </header>
+              <p class="voice-summary">${e.voice_summary || ''}</p>
+              ${insight}
+              <footer class="voice-card-foot">
+                ${sourceName}
+                ${linkHtml}
+              </footer>
+            </article>
+          `;
+        }).join('');
+      }
+
+      const searchEl = document.getElementById('voice-search');
+      if (searchEl) {
+        searchEl.addEventListener('input', (ev) => {
+          state.kw = ev.target.value.trim();
+          renderFeed();
+        });
+      }
+      renderFilters();
+      renderFeed();
+    })();
+  </script>
 </body>
 </html>

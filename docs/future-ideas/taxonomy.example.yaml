@@ -1,0 +1,156 @@
+# taxonomy.yaml の初期版（暫定）
+# 既存ページ chapter2-1.html(プレイヤー図鑑) と chapter3.html(構造課題) から抽出。
+# 田中さんが社内用語に合わせて補正してから本番 taxonomy.yaml にリネームする。
+
+industries:
+  # === ★5 主要顧客（WHEREの本命） ===
+  - id: detached_dev
+    label: "戸建分譲"
+    aliases: ["パワビル", "戸建分譲業者", "戸建デベ"]
+    description: "戸建用地（〜200坪）を仕入れて家を建てて売る"
+
+  - id: condo_dev
+    label: "マンデベ"
+    aliases: ["マンションデベロッパー", "マンデベロッパー"]
+    description: "マンション用地（500坪〜）を仕入れて分譲"
+
+  - id: resale
+    label: "買取再販"
+    aliases: ["買取再販業者", "リフォーム再販"]
+    description: "中古戸建・マンションを買取→リフォーム→販売"
+
+  - id: renewable
+    label: "再エネ事業者"
+    aliases: ["再生可能エネルギー", "メガソーラー", "風力", "太陽光"]
+    description: "遊休地に太陽光・風力発電。郊外大型遊休地が中心"
+
+  # === ★4 ===
+  - id: commercial_dev
+    label: "商業ビル開発"
+    aliases: ["商業デベ", "オフィス開発", "ホテル開発"]
+    description: "都心商業地を仕入れてビル建てて賃貸 or 売却"
+
+  - id: logistics
+    label: "倉庫・物流"
+    aliases: ["物流不動産", "ロジ"]
+    description: "郊外大型地で物流施設"
+
+  # === ★3 以下 ===
+  - id: parking
+    label: "駐車場運営"
+    aliases: ["コインパーキング", "月極駐車場"]
+    description: "小〜中規模空地でコインパーキング"
+
+  - id: investor
+    label: "投資家・地主"
+    aliases: ["不動産ファンド", "REIT", "私募ファンド"]
+    description: "収益物件をキャッシュフロー目的で保有"
+
+  # === ★2 ===
+  - id: brokerage
+    label: "仲介"
+    aliases: ["媒介", "仲介会社"]
+    description: "売物件情報を集めて売買仲介で手数料を得る（買い手ではない）"
+
+  # === フォールバック ===
+  - id: unclassified
+    label: "未分類"
+    aliases: []
+    description: "上記いずれにも該当しない場合のみ。new_category_proposed に候補を入れる"
+
+
+issue_categories:
+  # === 4大慢性病（旧 chapter3） ===
+  - id: brokerage_dependency
+    label: "仲介依存の罠"
+    aliases: ["仲介依存", "競合との価格競争"]
+    description: "同じ情報が複数社に出回り、価格競争で利益率が削られる構造的課題"
+
+  - id: offmarket_unreachable
+    label: "オフマーケット未到達"
+    aliases: ["市場前の土地問題", "川上情報不足"]
+    description: "売主が「売る」と決断する前段階の優良地に手段がなくアクセスできない"
+
+  - id: analog_search_limit
+    label: "アナログ探索の限界"
+    aliases: ["足で歩く限界", "属人探索"]
+    description: "「足で歩く」「紹介待ち」では物理的に母数に上限がある"
+
+  - id: knowledge_attrition
+    label: "属人化（目利き継承問題）"
+    aliases: ["属人化", "ノウハウ消失", "担当者異動リスク"]
+    description: "担当者異動で関係性リセット、地権者ネットワークが個人に紐づく"
+
+  # === WHERE の効きどころ ===
+  - id: owner_identification
+    label: "地権者特定の難しさ"
+    aliases: ["所有者特定", "登記調査"]
+    description: "登記から所有者・連絡先を辿る作業の手間と精度の問題"
+
+  - id: approach_response_rate
+    label: "アプローチ反応率"
+    aliases: ["DM返信率", "初回接触", "アポ獲得"]
+    description: "DM・訪問の反応率が低く、商談に至るまでが長い"
+
+  - id: monthly_volatility
+    label: "案件供給の月次ブレ"
+    aliases: ["来月は静か", "仕入れ件数の波"]
+    description: "案件が運と紹介に依存しており、月次の供給が読めない"
+
+  - id: inheritance_timing
+    label: "相続前後のタイミング"
+    aliases: ["相続発生前", "相続調査"]
+    description: "相続発生後ではDMが他社と埋もれる。発生前のアプローチが有効"
+
+  # === ビジネス成果系 ===
+  - id: direct_deal_acquired
+    label: "直接取引の獲得"
+    aliases: ["案件獲得", "成約", "受託"]
+    description: "WHERE 導入で直接取引案件が増加した事例"
+
+  - id: cost_efficiency
+    label: "営業コスト効率化"
+    aliases: ["時間短縮", "リソース最適化"]
+    description: "営業時間・人手の効率化"
+
+  - id: organization_capability
+    label: "組織能力の向上"
+    aliases: ["新人即戦力化", "地権者DB蓄積"]
+    description: "個人技から組織知への転換"
+
+  # === その他 ===
+  - id: feature_request
+    label: "機能要望・改善"
+    aliases: ["改善要望", "新機能依頼"]
+    description: "WHERE プロダクトへの具体的な改善・機能要望"
+
+  - id: onboarding_friction
+    label: "導入時の摩擦"
+    aliases: ["オンボーディング課題", "立ち上げ"]
+    description: "導入初期に発生した運用上の課題"
+
+  # === フォールバック ===
+  - id: unclassified
+    label: "未分類"
+    aliases: []
+    description: "上記いずれにも該当しない場合のみ。new_category_proposed に候補を入れる"
+
+
+# 抽象化・センシティブ判定ルール（system prompt に注入）
+prompt_rules:
+  abstraction: |
+    社内限定ホスティングに反映するため、個社名・案件名・担当者名を原則そのまま保持してよい。
+    ただし、以下のいずれかに該当する場合は sensitive_flag: true を立てる:
+      - 個人の人事評価・処遇・健康・宗教・思想に関する記述
+      - 未公表の M&A、財務状況、訴訟、捜査関連
+      - 第三者（顧客の顧客、提携先）の機密
+      - 公開すれば顧客との信頼を損なう可能性のある率直なフィードバック
+
+  voice_summary: |
+    1エントリの voice_summary は 200〜250 字。
+    「誰が・どんな状況で・何に困っていて/何が良かったか」を構造化して書く。
+    冗長な前置きは省く。
+
+  insight: |
+    insight は任意。書く場合は WHERE プロダクト/営業/全社にとっての示唆を1〜2文で。
+    存在しなければ null。
