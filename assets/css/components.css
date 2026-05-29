@@ -898,6 +898,346 @@
   border-radius: var(--radius-md);
 }
 
+/* === Versus table (chapter 3-0: WHEREがない世界 vs ある世界) === */
+.versus-table {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.versus-table .vt-head {
+  display: grid;
+  grid-template-columns: 200px 1fr 60px 1fr;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--color-subtext);
+  text-transform: uppercase;
+}
+.versus-table .vt-head .col-before { color: #6B7280; }
+.versus-table .vt-head .col-after { color: var(--color-accent-2); }
+.versus-table .vt-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 60px 1fr;
+  gap: var(--space-3);
+  align-items: stretch;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-sm);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.versus-table .vt-row:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.versus-table .vt-axis {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 800;
+  font-size: 15px;
+}
+.versus-table .vt-axis .axis-ico {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-main-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.versus-table .vt-side {
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.versus-table .vt-side .face { font-size: 22px; line-height: 1; }
+.versus-table .vt-side .label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.versus-table .vt-before {
+  background: #F3F4F6;
+  color: #4B5563;
+  position: relative;
+}
+.versus-table .vt-before .label { color: #6B7280; }
+.versus-table .vt-after {
+  background: var(--color-accent-2-soft);
+  color: #064E3B;
+  position: relative;
+}
+.versus-table .vt-after .label { color: #047857; }
+.versus-table .vt-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: var(--color-accent-2);
+  font-weight: 800;
+}
+@media (max-width: 800px) {
+  .versus-table .vt-head { display: none; }
+  .versus-table .vt-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+  .versus-table .vt-arrow { transform: rotate(90deg); padding: var(--space-2) 0; }
+}
+
+/* === World hero (chapter 3-0 結論カード) === */
+.shift-statement {
+  background: linear-gradient(135deg, var(--color-main) 0%, #1E40AF 100%);
+  color: #fff;
+  padding: var(--space-6) var(--space-5);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  margin-top: var(--space-5);
+  box-shadow: var(--shadow-lg);
+}
+.shift-statement h3 {
+  font-size: clamp(20px, 3vw, 26px);
+  margin-bottom: var(--space-3);
+  color: #fff;
+}
+.shift-statement .arrow-big {
+  display: inline-block;
+  margin: 0 var(--space-2);
+  font-size: 28px;
+  vertical-align: middle;
+  animation: shift-bounce 2s ease-in-out infinite;
+}
+@keyframes shift-bounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+.shift-statement .from-to {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 800;
+  font-size: 18px;
+  background: rgba(255,255,255,0.12);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 999px;
+  margin: var(--space-2);
+}
+.shift-statement .next-links {
+  margin-top: var(--space-5);
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.shift-statement .next-links a {
+  background: #fff;
+  color: var(--color-main);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.shift-statement .next-links a:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* === NEW badge === */
+.badge-new {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--color-accent-3);
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-left: 6px;
+  vertical-align: 2px;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+  animation: new-pulse 1.6s ease-in-out infinite;
+}
+@keyframes new-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15); }
+  50% { box-shadow: 0 0 0 5px rgba(239, 68, 68, 0.0); }
+}
+.sidebar .nav-item .badge-new {
+  font-size: 8px;
+  padding: 1px 5px;
+  margin-left: auto;
+}
+.card .badge-new {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin-left: 0;
+  font-size: 10px;
+  padding: 2px 7px;
+}
+.card { position: relative; }
+
+/* === Compat rating (WHERE適合度) for player cards === */
+.compat-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--space-2) 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-subtext);
+  text-transform: uppercase;
+}
+.compat-rating .stars {
+  display: inline-flex;
+  gap: 2px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--color-accent-1);
+}
+.compat-rating .stars .star-off { color: var(--color-border); }
+.compat-rating.lv5 .label { color: var(--color-accent-3); }
+.compat-rating.lv5 .label::after {
+  content: " ✨主要顧客";
+  color: var(--color-accent-3);
+  font-weight: 800;
+}
+.player-card.is-top {
+  border-color: var(--color-accent-1);
+  background: linear-gradient(180deg, #FFFBF1 0%, var(--color-surface) 30%);
+}
+.player-card.is-top::before {
+  content: "★ WHEREの主要顧客";
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  background: var(--color-accent-1);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.06em;
+}
+
+/* === Unit calculator (平米/坪 換算) === */
+.unit-calc {
+  background: var(--color-surface);
+  border: 2px solid var(--color-main);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin: var(--space-4) 0;
+  box-shadow: var(--shadow-sm);
+}
+.unit-calc h3 {
+  font-size: 16px;
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.unit-calc .uc-row {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  gap: var(--space-3);
+  align-items: center;
+  margin-bottom: var(--space-3);
+}
+.unit-calc .uc-cell {
+  background: var(--color-base);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.unit-calc .uc-cell label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-subtext);
+  text-transform: uppercase;
+}
+.unit-calc .uc-cell input {
+  font-family: var(--font-num);
+  font-weight: 800;
+  font-size: 24px;
+  color: var(--color-main);
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 2px 0;
+  border-bottom: 2px dashed var(--color-border);
+}
+.unit-calc .uc-cell input:focus {
+  border-bottom-color: var(--color-main);
+}
+.unit-calc .uc-cell .unit-tag {
+  font-size: 13px;
+  color: var(--color-subtext);
+  font-weight: 600;
+}
+.unit-calc .uc-arrow {
+  text-align: center;
+  font-size: 20px;
+  color: var(--color-main);
+}
+.unit-calc .uc-formula {
+  background: var(--color-main-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: 13px;
+  color: var(--color-main);
+  margin-top: var(--space-2);
+}
+.unit-calc .uc-formula code {
+  background: transparent;
+  padding: 0;
+  font-weight: 700;
+}
+.unit-calc .uc-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--space-3);
+}
+.unit-calc .uc-presets button {
+  background: var(--color-base);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.unit-calc .uc-presets button:hover {
+  background: var(--color-main-soft);
+  border-color: var(--color-main);
+  color: var(--color-main);
+}
+@media (max-width: 600px) {
+  .unit-calc .uc-row {
+    grid-template-columns: 1fr;
+  }
+  .unit-calc .uc-arrow { transform: rotate(90deg); padding: 6px 0; }
+}
+
 /* === Tabs (chapter3 4 issues) === */
 .tabs {
   display: flex;

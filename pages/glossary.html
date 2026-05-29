@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>5. 重要用語集 | WHERE Onboarding</title>
+  <title>4. 重要用語集 | WHERE Onboarding</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/css/reset.css" />
   <link rel="stylesheet" href="../assets/css/base.css" />
@@ -16,12 +16,49 @@
     <main class="main">
       <div class="container">
         <header class="page-head reveal">
-          <p class="eyebrow">Chapter 5</p>
+          <p class="eyebrow">Chapter 4</p>
           <h1><span class="emoji">📚</span>重要用語集</h1>
-          <p class="lead">業界用語・WHERE固有語を約50語、カテゴリ別に。検索とインクリメンタル絞り込み付き。</p>
+          <p class="lead">業界用語・WHERE固有語を約60語、カテゴリ別に。検索とインクリメンタル絞り込み付き。下に <strong>平米⇔坪の換算ツール</strong> もあります。</p>
         </header>
 
+        <section class="block reveal">
+          <h2>🧮 平米 ⇔ 坪 換算ツール</h2>
+          <p class="muted">WHERE社内の共通単位は <strong>㎡（平米）</strong>。営業先では坪を使うことも多いので、両方サッと出せるように。値を入力するともう片方が即時計算されます。</p>
+          <div class="unit-calc">
+            <h3>🧮 即時換算</h3>
+            <div class="uc-row">
+              <div class="uc-cell">
+                <label>平米（㎡）</label>
+                <input id="uc-sqm" type="number" inputmode="decimal" step="any" min="0" placeholder="例: 100" />
+                <span class="unit-tag">square meters</span>
+              </div>
+              <div class="uc-arrow">⇄</div>
+              <div class="uc-cell">
+                <label>坪（つぼ）</label>
+                <input id="uc-tsubo" type="number" inputmode="decimal" step="any" min="0" placeholder="例: 30" />
+                <span class="unit-tag">tsubo</span>
+              </div>
+            </div>
+            <div class="uc-formula">
+              📐 換算式 <code>1坪 = 約3.30578㎡（畳2枚分）</code> / <code>1㎡ = 約0.3025坪</code>
+            </div>
+            <div class="uc-presets" aria-label="サイズ感プリセット">
+              <button type="button" data-sqm="33">33㎡（10坪/ワンルーム規模）</button>
+              <button type="button" data-sqm="100">100㎡（30坪/戸建中規模）</button>
+              <button type="button" data-sqm="660">660㎡（200坪/戸建分譲上限）</button>
+              <button type="button" data-sqm="1650">1,650㎡（500坪/マンデベ下限）</button>
+              <button type="button" data-sqm="3300">3,300㎡（1,000坪）</button>
+              <button type="button" data-sqm="10000">10,000㎡（1ha/再エネ目安）</button>
+            </div>
+          </div>
+          <div class="callout info" style="margin-top:16px;">
+            <h4>💡 覚え方</h4>
+            <p>「<strong>平米を3.3で割れば坪</strong>」「<strong>坪に3.3を掛ければ平米</strong>」。ざっくりなら <strong>÷3 で概算</strong>（少し大きめに出る）。WHERE社内資料は㎡統一なので、坪で入ってきた数字も㎡に直して扱う癖を。</p>
+          </div>
+        </section>
+
         <section class="block">
+          <h2>📖 用語一覧</h2>
           <div class="glossary-controls">
             <input id="search" class="glossary-search" type="search" placeholder="🔍 用語名・説明・カテゴリで絞り込み..." />
           </div>
@@ -30,8 +67,8 @@
         </section>
 
         <nav class="page-nav">
-          <a class="prev" href="chapter4-3.html">&nbsp;4-3. 顧客の声</a>
-          <a class="next" href="quiz.html">6. 理解度チェック&nbsp;</a>
+          <a class="prev" href="chapter4-3.html">&nbsp;3-5. 顧客の声</a>
+          <a class="next" href="quiz.html">5. 理解度チェック&nbsp;</a>
         </nav>
       </div>
     </main>
@@ -44,5 +81,43 @@
   <script src="../assets/js/sidebar.js"></script>
   <script src="../assets/js/memo.js"></script>
   <script src="../assets/js/glossary.js"></script>
+  <script>
+    // 平米 ⇔ 坪 換算ツール
+    (function () {
+      const SQM_PER_TSUBO = 3.305785;
+      const sqmEl = document.getElementById('uc-sqm');
+      const tsuboEl = document.getElementById('uc-tsubo');
+      if (!sqmEl || !tsuboEl) return;
+      const fmt = (n) => {
+        if (!isFinite(n) || n === 0) return '';
+        // 整数なら整数、それ以外は小数2位まで
+        return Math.abs(n - Math.round(n)) < 1e-9
+          ? String(Math.round(n))
+          : (Math.round(n * 100) / 100).toString();
+      };
+      let updating = false;
+      sqmEl.addEventListener('input', () => {
+        if (updating) return;
+        updating = true;
+        const v = parseFloat(sqmEl.value);
+        tsuboEl.value = isFinite(v) ? fmt(v / SQM_PER_TSUBO) : '';
+        updating = false;
+      });
+      tsuboEl.addEventListener('input', () => {
+        if (updating) return;
+        updating = true;
+        const v = parseFloat(tsuboEl.value);
+        sqmEl.value = isFinite(v) ? fmt(v * SQM_PER_TSUBO) : '';
+        updating = false;
+      });
+      document.querySelectorAll('.uc-presets button[data-sqm]').forEach((b) => {
+        b.addEventListener('click', () => {
+          sqmEl.value = b.dataset.sqm;
+          sqmEl.dispatchEvent(new Event('input'));
+          sqmEl.focus();
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
