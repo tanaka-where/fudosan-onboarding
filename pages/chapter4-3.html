@@ -201,23 +201,43 @@
           root.innerHTML = '<p class="muted">該当するエントリが見つかりませんでした。</p>';
           return;
         }
-        root.innerHTML = filtered.map((e) => {
+        const escapeHtml = (s) => String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+        root.innerHTML = filtered.map((e, i) => {
           const sensitive = e.sensitive_flag ? '<span class="voice-sensitive">⚠️ センシティブ</span>' : '';
           const linkHtml = e.source_url
-            ? `<a class="voice-source" href="${e.source_url}" target="_blank" rel="noopener noreferrer">🔗 元資料を開く（社内Drive）</a>`
+            ? `<a class="voice-source" href="${escapeHtml(e.source_url)}" target="_blank" rel="noopener noreferrer">🔗 元資料を開く（社内Drive）</a>`
             : '<span class="voice-source muted">元資料リンクなし</span>';
-          const sourceName = e.source_name ? `<span class="voice-source-name">${e.source_name}</span>` : '';
-          const insight = e.insight ? `<div class="voice-insight">💡 ${e.insight}</div>` : '';
+          const sourceName = e.source_name ? `<span class="voice-source-name">${escapeHtml(e.source_name)}</span>` : '';
+          const insight = e.insight ? `<div class="voice-insight">💡 ${escapeHtml(e.insight)}</div>` : '';
+          let detailsHtml = '';
+          if (e.details && typeof e.details === 'object' && Object.keys(e.details).length > 0) {
+            const rows = Object.entries(e.details).map(([k, v]) => `
+              <div class="voice-detail-row">
+                <div class="voice-detail-key">${escapeHtml(k)}</div>
+                <div class="voice-detail-val">${escapeHtml(v)}</div>
+              </div>
+            `).join('');
+            detailsHtml = `
+              <details class="voice-details">
+                <summary>▼ 詳細を開く（事例の構造化データ）</summary>
+                <div class="voice-detail-table">${rows}</div>
+              </details>
+            `;
+          }
           return `
             <article class="voice-card">
               <header class="voice-card-head">
                 <span class="voice-date">${fmtDate(e.added_at)}</span>
-                <span class="voice-tag voice-tag-ind">${e.industry || '未分類'}</span>
-                <span class="voice-tag voice-tag-iss">${e.issue_category || '未分類'}</span>
+                <span class="voice-tag voice-tag-ind">${escapeHtml(e.industry || '未分類')}</span>
+                <span class="voice-tag voice-tag-iss">${escapeHtml(e.issue_category || '未分類')}</span>
                 ${sensitive}
               </header>
-              <p class="voice-summary">${e.voice_summary || ''}</p>
+              <p class="voice-summary">${escapeHtml(e.voice_summary || '')}</p>
               ${insight}
+              ${detailsHtml}
               <footer class="voice-card-foot">
                 ${sourceName}
                 ${linkHtml}
