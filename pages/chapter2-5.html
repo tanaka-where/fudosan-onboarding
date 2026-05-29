@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2-5. 仕入れで取る書類図鑑 | WHERE Onboarding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/reset.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body data-page-id="ch2-5">
+  <div class="app">
+    <aside id="sidebar" data-active="ch2-5"></aside>
+
+    <main class="main">
+      <div class="container">
+        <header class="page-head reveal">
+          <p class="eyebrow">Chapter 2-5</p>
+          <h1><span class="emoji">📂</span>仕入れで取る書類図鑑</h1>
+          <p class="lead">2-4で出てきた「登記簿取得・公図確認」を、書類のレベルまで掘り下げる。仕入れ営業はこれらの紙束で土地の「権利」と「物理」を読み解く。</p>
+        </header>
+
+        <section class="block reveal">
+          <h2>📦 仕入れの書類は2レイヤーに分かれる</h2>
+          <p class="muted">どちらが欠けても仕入れは前に進まない。最初にこの枠組みを掴むと迷子にならない。</p>
+          <div class="layer-intro">
+            <div class="layer-panel rights">
+              <div class="head"><span class="layer-ico">🟫</span>権利レイヤー</div>
+              <p>登記・権利系。<strong>「誰が持っていて、どんな権利が付いているか」</strong>を確かめる。所有者・抵当権・履歴の確認に使う。</p>
+            </div>
+            <div class="plus">＋</div>
+            <div class="layer-panel physical">
+              <div class="head"><span class="layer-ico">🛣️</span>物理・建築レイヤー</div>
+              <p>道路・インフラ系。<strong>「建てられるか、どこまで使えるか、いくらで開発できるか」</strong>を確かめる。接道・セットバック・水道下水ガスの可否。</p>
+            </div>
+          </div>
+          <div class="callout info">
+            <p>💡 仕入れの判断は <strong>権利OK ＆ 物理OK</strong> の2軸が揃って初めて前に進む。営業現場では同じ案件について両レイヤーの書類を並べて確認する。</p>
+          </div>
+        </section>
+
+        <section class="block reveal">
+          <p class="muted center" style="margin-bottom:8px;">👇 各カードをクリックすると「特徴 / 違い / 活用シーン」が展開します。</p>
+          <div id="doc-zukan-root"></div>
+        </section>
+
+        <section class="block reveal">
+          <h2>📊 14書類の早見表</h2>
+          <p class="muted">「証明力 × 時間軸 × レイヤー」で並べると、どの書類をいつ取るかが一目で見える。</p>
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>書類</th>
+                  <th>レイヤー</th>
+                  <th>証明力</th>
+                  <th>時間軸</th>
+                  <th>こんな時</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="rights-row"><td>登記簿謄本（土地・建物）</td><td><span class="pill layer-r">権利</span></td><td><span class="pill ok">あり</span></td><td>現在</td><td>所有者・抵当権の基本確認</td></tr>
+                <tr class="rights-row"><td>隣地要約書</td><td><span class="pill layer-r">権利</span></td><td><span class="pill no">なし</span></td><td>現在</td><td>隣地所有者を素早く確認</td></tr>
+                <tr class="rights-row"><td>閉鎖謄本</td><td><span class="pill layer-r">権利</span></td><td><span class="pill ok">あり</span></td><td>過去</td><td>合筆・滅失前を遡る</td></tr>
+                <tr class="rights-row"><td>移記閉鎖謄本</td><td><span class="pill layer-r">権利</span></td><td><span class="pill ok">あり</span></td><td>過去</td><td>コンピュータ化前の旧権利</td></tr>
+                <tr class="rights-row"><td>旧土地台帳</td><td><span class="pill layer-r">権利</span></td><td><span class="pill no">参考</span></td><td>最古層</td><td>戦前まで遡る所有者沿革</td></tr>
+                <tr class="physical-row"><td>道路台帳</td><td><span class="pill layer-p">物理</span></td><td><span class="pill ok">あり</span></td><td>現在</td><td>公道の幅員確認</td></tr>
+                <tr class="physical-row"><td>道路種別図</td><td><span class="pill layer-p">物理</span></td><td><span class="pill ok">あり</span></td><td>現在</td><td>接道判定の起点</td></tr>
+                <tr class="physical-row"><td>位置指定道路図</td><td><span class="pill layer-p">物理</span></td><td><span class="pill ok">あり</span></td><td>現在</td><td>私道接道地の再建築判定</td></tr>
+                <tr class="physical-row"><td>狭隘協議書</td><td><span class="pill layer-p">物理</span></td><td><span class="pill ok">あり</span></td><td>現在</td><td>セットバック範囲確定</td></tr>
+                <tr class="physical-row"><td>境界確定図</td><td><span class="pill layer-p">物理</span></td><td><span class="pill ok">あり</span></td><td>現在</td><td>面積・分筆・開発可否</td></tr>
+                <tr class="physical-row"><td>水道管管理図</td><td><span class="pill layer-p">物理</span></td><td><span class="pill ok">あり</span></td><td>現在</td><td>上水引込可否・コスト</td></tr>
+                <tr class="physical-row"><td>下水道台帳</td><td><span class="pill layer-p">物理</span></td><td><span class="pill ok">あり</span></td><td>現在</td><td>下水接続可否・流下条件</td></tr>
+                <tr class="physical-row"><td>ガス管管理図面</td><td><span class="pill layer-p">物理</span></td><td><span class="pill ok">あり</span></td><td>現在</td><td>都市ガス有無・引込判断</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout" style="margin-top:16px;">
+            <h4>🧭 判断の順番（1行ガイド）</h4>
+            <p><strong>証明が要るなら謄本系</strong> ／ 要約だけなら要約書 ／ <strong>過去は閉鎖系</strong> ／ コンピュータ化前は移記閉鎖 ／ 最古層は旧土地台帳。<br><strong>建てられるかは</strong> 道路種別図 → 位置指定/道路台帳 → 狭隘 → 境界確定 の順、インフラは水道・下水・ガス。</p>
+          </div>
+        </section>
+
+        <section class="block reveal">
+          <div class="callout good">
+            <h4>🎒 ここまでの持ち帰り</h4>
+            <p>仕入れの書類は <strong>権利レイヤー（誰の何）と物理レイヤー（何ができるか）</strong> の2階建て。営業はこの2層を必ずクロスで確認する。WHEREは「権利レイヤー＝登記情報」と「物理レイヤー＝衛星×AI＋規制データ」の両方を、現地に行く前に画面上で重ねて見られるようにする。</p>
+          </div>
+        </section>
+
+        <nav class="page-nav">
+          <a class="prev" href="chapter2-4.html">&nbsp;2-4. 営業の1日</a>
+          <a class="next" href="chapter3.html">3. 業界の構造課題&nbsp;</a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/memo.js"></script>
+  <script>
+    // 書類カードのデータ。後日「不動産図面」「都市計画」セクションを追加する際は、
+    // ここに { layer: 'figure' | 'urban', ... } のカードを足すだけで反映できる構造。
+    // layer: 'rights' = 権利レイヤー / 'physical' = 物理・建築レイヤー
+    const DOCS = [
+      // === 🟫 権利レイヤー ===
+      {
+        no: '01', layer: 'rights', icon: '📄', name: '登記簿謄本（土地）',
+        short: '土地の権利の基本台紙',
+        feature: '正式名は登記事項証明書。<strong>表題部（所在・地番・地目・地積） / 権利部甲区（所有権） / 権利部乙区（抵当権など）</strong>の3層構成。法務局の認証文・公印つきで証明力あり。',
+        diff: '土地と建物で記録が完全に別。<strong>「証明力がある」</strong>点が要約書（公印なし）との違い。',
+        use: '所有者の確定、抵当権・差押・仮登記の有無確認、相続調査。<strong>仕入れデューデリの基本</strong>として真っ先に取る1枚。'
+      },
+      {
+        no: '02', layer: 'rights', icon: '🏠', name: '登記簿謄本（建物）',
+        short: '建物の権利の基本台紙',
+        feature: '構成は土地と共通。表題部は<strong>家屋番号・構造・床面積</strong>を記録。',
+        diff: '土地と別管理。1筆に複数建物／建物滅失で土地だけ残るケースもあるため、<strong>土地謄本とセットで照合</strong>するのが鉄則。',
+        use: '建物の所有者・抵当権確認、<strong>未登記建物の発見</strong>（謄本にないのに現物が建っている）。'
+      },
+      {
+        no: '03', layer: 'rights', icon: '👀', name: '隣地要約書',
+        short: '隣地の所有者を早く・安く',
+        feature: '登記事項要約書を隣接地について取得。<strong>現在有効な権利のみの抜粋</strong>。認証文・公印なしで証明力なし、その分安く早い。履歴は載らない。',
+        diff: '謄本＝<strong>証明あり・履歴あり</strong> / 要約書＝<strong>証明なし・現在のみ</strong>。',
+        use: '用地取得・地上げで隣接地主を把握、境界交渉や越境の相手特定。<strong>「誰が持っているか」だけ先に知りたい初期確認</strong>に最適。'
+      },
+      {
+        no: '04', layer: 'rights', icon: '📕', name: '閉鎖謄本',
+        short: '過去をたどる',
+        feature: '合筆・建物滅失・他筆吸収などで<strong>閉鎖された登記記録</strong>。現行謄本には載らない。保存期間あり（古いものは廃棄も）。',
+        diff: '現行の登記簿謄本に対し、<strong>「閉鎖された過去の記録」</strong>。',
+        use: '過去の所有者履歴の追跡、分合筆前の状態確認、滅失建物の来歴、<strong>相続・所有者不明土地調査</strong>。'
+      },
+      {
+        no: '05', layer: 'rights', icon: '💾', name: '移記閉鎖謄本',
+        short: 'コンピュータ化前の履歴を補完',
+        feature: '紙（ブック）→コンピュータ化に伴い閉鎖された登記簿。<strong>移記時に現在有効な事項のみ移され、抹消済みの古い権利は移記されないことが多い</strong>。',
+        diff: '閉鎖謄本の一種だが、閉鎖原因が<strong>「コンピュータ化」に限定</strong>。現行謄本に載らない旧権利がここにだけ残る。',
+        use: 'コンピュータ化前の所有者・抵当権の確認、<strong>長期の権利履歴を要する相続・訴訟調査</strong>。'
+      },
+      {
+        no: '06', layer: 'rights', icon: '📜', name: '旧土地台帳',
+        short: '戦前まで遡る来歴',
+        feature: '1960年（昭和35年）の<strong>台帳・登記簿一元化より前</strong>に、税務署が地租課税のために管理していた記録。明治期からの古い所有者履歴を含むことがある。権利の証明書ではなく沿革記録。',
+        diff: '登記簿とは<strong>別系統（旧税務署系）</strong>。証明力は限定的だが最古層をたどれる。',
+        use: '戦前〜昭和初期の所有者追跡、<strong>所有者不明土地・相続人調査</strong>、地番・境界の沿革確認。'
+      },
+
+      // === 🛣️ 物理・建築レイヤー ===
+      {
+        no: '07', layer: 'physical', icon: '🛣️', name: '道路台帳',
+        short: '公道の幅員を確認',
+        feature: '道路法に基づき<strong>道路管理者が作る公道（認定道路）の台帳</strong>。幅員・延長・構造・区域を記載。',
+        diff: '対象は<strong>公道のみ</strong>。私道・2項道路は載らない（→道路種別図／位置指定道路図で見る）。',
+        use: '前面道路が公道か、<strong>幅員4m以上か、セットバック要否</strong>の確認。'
+      },
+      {
+        no: '08', layer: 'physical', icon: '🗺️', name: '道路種別図',
+        short: '接道判定のスタート地点',
+        feature: '前面道路が<strong>建築基準法上どの種別か（42条1項1〜5号、42条2項道路等）</strong>を色分けで示す図。特定行政庁が公開（指定道路図とも）。',
+        diff: '道路台帳が「公道の物理情報」なのに対し、こちらは<strong>「建基法上の道路かどうかの分類」</strong>。',
+        use: '建基法上の道路に接しているか／2項道路でセットバックが要るかを一目で確認。<strong>再建築可否判断の起点</strong>。'
+      },
+      {
+        no: '09', layer: 'physical', icon: '📐', name: '位置指定道路図',
+        short: '私道の再建築可否の核心',
+        feature: '私道のうち特定行政庁から<strong>道路位置指定（42条1項5号）</strong>を受けたものの指定図面。指定番号・幅員・延長・すみ切り形状を記載。',
+        diff: '私道でも<strong>「建基法上の道路」と認められる根拠資料</strong>。現況と指定内容のズレ確認も重要。',
+        use: '私道・旗竿地・<strong>私道奥の物件で接道＝再建築可否</strong>を判定。'
+      },
+      {
+        no: '10', layer: 'physical', icon: '↔️', name: '狭隘協議書',
+        short: 'セットバックで使える土地が減る',
+        feature: '幅員4m未満の狭あい道路（2項道路等）に接する敷地で建てる際の、<strong>自治体との後退協議書</strong>。後退線の位置・後退用地の扱いを定める。',
+        diff: '図面ではなく<strong>「協議の結果」を示す書類</strong>。有効宅地面積に直結。',
+        use: 'セットバック義務と範囲、<strong>使える土地面積・建築可能ボリュームの把握</strong>。査定・仕入れ判断に影響。'
+      },
+      {
+        no: '11', layer: 'physical', icon: '📍', name: '境界確定図',
+        short: '土地の輪郭を確定する',
+        feature: '隣接地所有者・道路管理者との立会いで境界を確定した図面（<strong>確定測量図・官民境界確定図</strong>）。筆界確認書とセット。',
+        diff: '正確な面積・形状・境界を<strong>「確定済み」で示す</strong>。未確定だと売買・分筆・開発に支障。',
+        use: '<strong>確定測量済みか否かは取引価格・流動性に直結</strong>。官民境界が未確定だとセットバック量も計算できない。'
+      },
+      {
+        no: '12', layer: 'physical', icon: '🚰', name: '水道管管理図',
+        short: '上水が引けるか',
+        feature: '水道事業者が管理する<strong>配水管の位置図</strong>。本管の有無・口径・引込み位置が分かる。',
+        diff: 'ライフライン3点（水道／下水／ガス）のうち<strong>上水担当</strong>。',
+        use: '<strong>新規引込みの可否・コスト</strong>、複数戸開発時の口径不足の確認。'
+      },
+      {
+        no: '13', layer: 'physical', icon: '🚽', name: '下水道台帳',
+        short: '下水につなげるか',
+        feature: '公共下水道管理者が管理する<strong>施設平面図</strong>。本管の位置・管径・深さ、取付管・公共マス位置が分かる。',
+        diff: '接続可否に加え<strong>「自然流下できる深さか（ポンプアップ要否）」</strong>まで見る。未整備地域は浄化槽。',
+        use: '<strong>下水接続可否・流下条件・開発コスト</strong>の判断。'
+      },
+      {
+        no: '14', layer: 'physical', icon: '🔥', name: 'ガス管管理図面',
+        short: '都市ガスがあるか',
+        feature: '都市ガス事業者が管理する<strong>本管の配管図</strong>。本管の位置・口径が分かる。',
+        diff: 'なければ<strong>プロパン（LPガス）対応</strong>に。',
+        use: '<strong>都市ガスの有無</strong>、分譲・新築の付加価値とコスト判断。'
+      }
+    ];
+
+    const LAYERS = [
+      {
+        id: 'rights',
+        ico: '🟫',
+        title: '権利レイヤー（登記・権利系）',
+        sub: '誰が持っていて、どんな権利が付いているか'
+      },
+      {
+        id: 'physical',
+        ico: '🛣️',
+        title: '物理・建築レイヤー（道路・インフラ系）',
+        sub: '建てられるか、どこまで使えるか、いくらで開発できるか'
+      }
+      // 将来追加例: { id: 'figure', ico: '📐', title: '不動産図面関係', sub: '...' },
+      //            { id: 'urban',  ico: '🏙️', title: '都市計画・開発関係', sub: '...' }
+    ];
+
+    function renderZukan() {
+      const root = document.getElementById('doc-zukan-root');
+      if (!root) return;
+      const html = LAYERS.map((L) => {
+        const cards = DOCS.filter((d) => d.layer === L.id);
+        if (cards.length === 0) return '';
+        const cardsHtml = cards.map((d) => `
+          <article class="doc-card ${L.id}" data-toggle role="button" tabindex="0" aria-expanded="false">
+            <div class="doc-head">
+              <div class="doc-ico" aria-hidden="true">${d.icon}</div>
+              <div>
+                <div class="doc-no">${d.no}</div>
+                <h3>${d.name}</h3>
+              </div>
+            </div>
+            <p class="doc-short">${d.short}</p>
+            <div class="doc-body">
+              <div class="row-item"><span class="label-mini feat">特徴</span>${d.feature}</div>
+              <div class="row-item"><span class="label-mini diff">違い</span>${d.diff}</div>
+              <div class="row-item"><span class="label-mini use">活用</span>${d.use}</div>
+            </div>
+            <span class="doc-toggle">詳細</span>
+          </article>
+        `).join('');
+        return `
+          <div class="doc-layer-block">
+            <div class="doc-layer-head ${L.id}">
+              <span class="lh-ico">${L.ico}</span>
+              <h2>${L.title}</h2>
+              <span class="lh-sub">${L.sub}</span>
+            </div>
+            <div class="doc-grid">${cardsHtml}</div>
+          </div>
+        `;
+      }).join('');
+      root.innerHTML = html;
+
+      root.querySelectorAll('.doc-card[data-toggle]').forEach((card) => {
+        const open = () => {
+          const next = !card.classList.contains('is-open');
+          card.classList.toggle('is-open', next);
+          card.setAttribute('aria-expanded', String(next));
+        };
+        card.addEventListener('click', open);
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderZukan);
+  </script>
+</body>
+</html>

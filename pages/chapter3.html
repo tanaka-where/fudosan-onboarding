@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3. 業界の構造課題 | WHERE Onboarding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/reset.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body data-page-id="ch3">
+  <div class="app">
+    <aside id="sidebar" data-active="ch3"></aside>
+
+    <main class="main">
+      <div class="container">
+        <header class="page-head reveal">
+          <p class="eyebrow">Chapter 3</p>
+          <h1><span class="emoji">🧱</span>業界の構造課題</h1>
+          <p class="lead">単発の不便ではなく、<strong>構造的な歪み</strong>として根深い4つの課題。Slackで顧客から繰り返し聞こえてくる悩みでもある。</p>
+        </header>
+
+        <section class="block reveal">
+          <div class="mini-toc">
+            <strong>4つの課題:</strong>
+            <a href="#issue1">① 仲介依存の罠</a>
+            <a href="#issue2">② 非マーケット</a>
+            <a href="#issue3">③ アナログ探索</a>
+            <a href="#issue4">④ 属人化</a>
+          </div>
+        </section>
+
+        <section class="block reveal">
+          <div class="tabs" role="tablist">
+            <button data-tab="t1" class="is-active">① 仲介依存</button>
+            <button data-tab="t2">② 非マーケット</button>
+            <button data-tab="t3">③ アナログ探索</button>
+            <button data-tab="t4">④ 属人化</button>
+          </div>
+
+          <div id="t1" class="tab-panel is-active">
+            <div class="issue" id="issue1">
+              <div class="face">😣</div>
+              <div>
+                <span class="tag warn">課題 1</span>
+                <h3>仲介依存の罠</h3>
+                <p>同じ物件情報が<strong>複数社に同時に流される</strong>。各社が同じテーブルで価格を釣り上げ、利幅は削られる。</p>
+                <p class="voice">「相見積もりが前提で、結局いつも高値で買わされる」 ── 大手戸建分譲</p>
+                <p class="voice">「うちは買えそうな会社の中の1社にすぎない」 ── 中堅マンデベ</p>
+              </div>
+            </div>
+            <div class="callout warn">
+              <h4>なぜ起きるのか</h4>
+              <p>仲介会社は手数料商売なので、最も高く買いそうな相手を競わせるのが合理的。<strong>仲介経由でしか情報を取れない仕入れ側は、構造的にレースから降りられない。</strong></p>
+            </div>
+          </div>
+
+          <div id="t2" class="tab-panel">
+            <div class="issue" id="issue2">
+              <div class="face">🚫</div>
+              <div>
+                <span class="tag warn">課題 2</span>
+                <h3>市場前の土地に届かない（非マーケット問題）</h3>
+                <p>本当に欲しい優良地は、<strong>市場（仲介・レインズ）に出る前</strong>に水面下で動く。多くの会社はこの段階に手段を持たない。</p>
+                <p class="voice">「いい土地は表に出る前に消えている」 ── 賃貸開発</p>
+                <p class="voice">「気がついたら大手に押さえられていた」 ── 地場再販</p>
+              </div>
+            </div>
+            <div class="callout warn">
+              <h4>なぜ起きるのか</h4>
+              <p>所有者は「売る決断」の前に水面下で相談を始める。地縁・人脈のある特定の会社にしか声がかからない。<strong>探索コストの高さが、参入障壁になっている。</strong></p>
+            </div>
+          </div>
+
+          <div id="t3" class="tab-panel">
+            <div class="issue" id="issue3">
+              <div class="face">😩</div>
+              <div>
+                <span class="tag warn">課題 3</span>
+                <h3>アナログ探索の物理限界</h3>
+                <p>地図を眺める・現地を流す・登記簿を取る・手紙を書く ── 一人の営業がカバーできるエリアと頻度には限界がある。</p>
+                <p class="voice">「足で歩いて見つけるか、紹介を待つかしかない」 ── 中堅デベ</p>
+                <p class="voice">「DM返信率は業界平均で0.02%。100通送って1通来ない」 ── 仕入れ部長</p>
+              </div>
+            </div>
+            <div class="callout warn">
+              <h4>なぜ起きるのか</h4>
+              <p>「空地・古家・遊休地」を判別するのは、衛星画像でもなければ人の目に頼るしかなかった。<strong>所有者特定は登記簿手作業の世界</strong>で、スケールしない。</p>
+            </div>
+          </div>
+
+          <div id="t4" class="tab-panel">
+            <div class="issue" id="issue4">
+              <div class="face">😢</div>
+              <div>
+                <span class="tag warn">課題 4</span>
+                <h3>組織に蓄積されない（属人化）</h3>
+                <p>担当者が異動・退職すると、地権者ネットワークも信頼も<strong>個人に紐づいて消える</strong>。組織知として残らない。</p>
+                <p class="voice">「あの人が辞めて、地主さんから連絡が来なくなった」 ── 経営層</p>
+                <p class="voice">「目利きの継承に年単位がかかる」 ── 部長</p>
+              </div>
+            </div>
+            <div class="callout warn">
+              <h4>なぜ起きるのか</h4>
+              <p>顧客情報・地権者情報がCRMに乗らず、<strong>頭の中・名刺・スマホ</strong>に散らばっている。地縁ビジネスゆえに「人＝資産」の構造から抜けられない。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="block reveal">
+          <h2>🧩 4つの課題はつながっている</h2>
+          <p class="muted">
+            <strong>仲介依存（①）</strong>から抜け出すには、市場前情報＝<strong>非マーケット（②）</strong>にアクセスする必要がある。<br>
+            しかし非マーケットにはアナログ探索（③）の物理限界が立ちはだかる。<br>
+            さらに地縁で繋ぐと組織に残らず<strong>属人化（④）</strong>する。<br>
+            ── この4つを同時に解く仕組みが、業界に欠けていた。
+          </p>
+        </section>
+
+        <section class="block reveal">
+          <div class="callout good">
+            <h4>👉 次の章へ</h4>
+            <p>この4つの課題に正面から答えるのが、WHEREの提供価値。<a href="chapter4-1.html" style="color:var(--color-main); font-weight:600;">4-1. WHEREの3つのコア価値</a> で具体的に見ていきましょう。</p>
+          </div>
+        </section>
+
+        <nav class="page-nav">
+          <a class="prev" href="chapter2-5.html">&nbsp;2-5. 書類図鑑</a>
+          <a class="next" href="chapter4-0.html">4-0. WHEREの機能全容&nbsp;</a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/memo.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.tabs button[data-tab]');
+      const panels = document.querySelectorAll('.tab-panel');
+      tabs.forEach((t) => {
+        t.addEventListener('click', () => {
+          tabs.forEach((x) => x.classList.remove('is-active'));
+          panels.forEach((p) => p.classList.remove('is-active'));
+          t.classList.add('is-active');
+          const target = document.getElementById(t.dataset.tab);
+          if (target) target.classList.add('is-active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

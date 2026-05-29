@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>全メモ一覧 | WHERE Onboarding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/reset.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <style>
+    .memo-list-item {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-bottom: var(--space-3);
+    }
+    .memo-list-item h3 { font-size: 16px; margin-bottom: var(--space-2); }
+    .memo-list-item .updated { font-size: 12px; color: var(--color-subtext); margin-bottom: var(--space-2); }
+    .memo-list-item pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      background: #FFFEF4;
+      padding: var(--space-3);
+      border-radius: var(--radius-sm);
+      border: 1px dashed var(--color-border);
+    }
+    .memo-list-item .actions { margin-top: var(--space-2); display: flex; gap: var(--space-2); }
+    .memo-list-item .actions a, .memo-list-item .actions button {
+      font-size: 12px; color: var(--color-main); font-weight: 600;
+    }
+    .memo-list-item .actions .danger { color: var(--color-accent-3); }
+  </style>
+</head>
+<body data-page-id="memos">
+  <div class="app">
+    <aside id="sidebar" data-active="memos"></aside>
+
+    <main class="main">
+      <div class="container">
+        <header class="page-head reveal">
+          <p class="eyebrow">Workspace</p>
+          <h1><span class="emoji">📝</span>全メモ一覧</h1>
+          <p class="lead">各ページで残したメモを一覧表示します。データはお使いのブラウザにだけ保存され、他の端末・ユーザーには共有されません。</p>
+        </header>
+
+        <section class="block">
+          <div id="memos-root"></div>
+          <div id="empty-state" style="display:none;" class="callout info">
+            <p>まだメモがありません。各ページ右下の「📝 メモ」ボタンから書き残せます。</p>
+          </div>
+
+          <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+            <button id="export-btn" type="button" class="glossary-filter">📤 全メモをコピー</button>
+            <button id="clear-btn" type="button" class="glossary-filter" style="border-color:var(--color-accent-3); color:var(--color-accent-3);">🗑 全メモ削除</button>
+          </div>
+        </section>
+
+        <nav class="page-nav">
+          <a class="prev" href="../index.html">&nbsp;ホーム</a>
+          <span class="spacer">spacer</span>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/memo.js"></script>
+  <script>
+    (function () {
+      const INDEX_KEY = 'memo:_index';
+      const PREFIX = 'memo:';
+
+      function pageLinkFromId(pageId) {
+        if (pageId === 'index') return '../index.html';
+        if (pageId === 'memos') return 'memos.html';
+        return pageId + '.html';
+      }
+
+      function load() {
+        let idx = {};
+        try { idx = JSON.parse(localStorage.getItem(INDEX_KEY) || '{}'); } catch (_) {}
+        const root = document.getElementById('memos-root');
+        const empty = document.getElementById('empty-state');
+        const entries = Object.entries(idx)
+          .map(([id, meta]) => ({ id, ...meta, content: localStorage.getItem(PREFIX + id) || '' }))
+          .filter((e) => e.content && e.content.trim())
+          .sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+
+        if (entries.length === 0) {
+          root.innerHTML = '';
+          empty.style.display = 'block';
+          return;
+        }
+        empty.style.display = 'none';
+        root.innerHTML = entries.map((e) => `
+          <div class="memo-list-item" data-id="${e.id}">
+            <h3>${e.title || e.id}</h3>
+            <div class="updated">更新: ${new Date(e.updatedAt).toLocaleString('ja-JP')}</div>
+            <pre>${e.content.replace(/[<>&]/g, (c) => ({ '<':'&lt;', '>':'&gt;', '&':'&amp;' }[c]))}</pre>
+            <div class="actions">
+              <a href="${pageLinkFromId(e.id)}">↗ そのページへ</a>
+              <button type="button" class="danger" data-del="${e.id}">削除</button>
+            </div>
+          </div>
+        `).join('');
+
+        root.querySelectorAll('[data-del]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const id = btn.dataset.del;
+            if (!confirm('このメモを削除しますか?')) return;
+            localStorage.removeItem(PREFIX + id);
+            let i = {};
+            try { i = JSON.parse(localStorage.getItem(INDEX_KEY) || '{}'); } catch (_) {}
+            delete i[id];
+            localStorage.setItem(INDEX_KEY, JSON.stringify(i));
+            load();
+          });
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        load();
+        document.getElementById('export-btn').addEventListener('click', () => {
+          let idx = {};
+          try { idx = JSON.parse(localStorage.getItem(INDEX_KEY) || '{}'); } catch (_) {}
+          const text = Object.entries(idx).map(([id, meta]) => {
+            const c = localStorage.getItem(PREFIX + id) || '';
+            return `## ${meta.title || id}\n更新: ${new Date(meta.updatedAt).toLocaleString('ja-JP')}\n\n${c}\n`;
+          }).join('\n---\n\n');
+          if (!text) { alert('コピーするメモがありません'); return; }
+          navigator.clipboard.writeText(text).then(
+            () => alert('全メモをクリップボードにコピーしました'),
+            () => alert('コピーに失敗しました')
+          );
+        });
+        document.getElementById('clear-btn').addEventListener('click', () => {
+          if (!confirm('すべてのメモを削除します。元に戻せません。本当に良いですか?')) return;
+          let idx = {};
+          try { idx = JSON.parse(localStorage.getItem(INDEX_KEY) || '{}'); } catch (_) {}
+          Object.keys(idx).forEach((id) => localStorage.removeItem(PREFIX + id));
+          localStorage.removeItem(INDEX_KEY);
+          load();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

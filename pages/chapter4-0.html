@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>4-0. WHEREの機能全容 | WHERE Onboarding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/reset.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <style>
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-2);
+      margin-top: var(--space-5);
+      position: relative;
+    }
+    .workflow .step {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-3);
+      border: 1px solid var(--color-border);
+      text-align: center;
+      position: relative;
+    }
+    .workflow .step .num {
+      width: 28px; height: 28px;
+      background: var(--color-main);
+      color: #fff;
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-num); font-weight: 800; font-size: 13px;
+      margin-bottom: var(--space-2);
+    }
+    .workflow .step .ico { font-size: 28px; margin-bottom: 6px; }
+    .workflow .step h4 { font-size: 14px; margin-bottom: 4px; }
+    .workflow .step p { font-size: 12px; color: var(--color-subtext); line-height: 1.5; }
+    .workflow .step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-main);
+      font-size: 20px;
+      z-index: 1;
+    }
+    @media (max-width: 820px) {
+      .workflow { grid-template-columns: 1fr; }
+      .workflow .step:not(:last-child)::after { right: 50%; top: auto; bottom: -14px; transform: translateX(50%) rotate(90deg); }
+    }
+    .feature-cluster {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      border: 1px solid var(--color-border);
+      margin-bottom: var(--space-4);
+    }
+    .feature-cluster .cluster-head {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 2px solid var(--color-main-soft);
+    }
+    .feature-cluster .cluster-head .badge {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--color-main-soft);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 24px;
+    }
+    .feature-cluster .cluster-head h3 { font-size: 18px; }
+    .feature-cluster .cluster-head .sub { font-size: 12px; color: var(--color-subtext); }
+    .feat-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-3); }
+    .feat-item {
+      background: #FAFBFC;
+      border-radius: var(--radius-sm);
+      padding: var(--space-3);
+      border-left: 3px solid var(--color-main);
+    }
+    .feat-item h4 { font-size: 14px; margin-bottom: 4px; }
+    .feat-item p { font-size: 13px; color: var(--color-subtext); }
+  </style>
+</head>
+<body data-page-id="ch4-0">
+  <div class="app">
+    <aside id="sidebar" data-active="ch4-0"></aside>
+
+    <main class="main">
+      <div class="container">
+        <header class="page-head reveal">
+          <p class="eyebrow">Chapter 4-0</p>
+          <h1><span class="emoji">🧭</span>WHEREの機能全容</h1>
+          <p class="lead">「で、WHEREは具体的に何ができるサービスなの?」── 各機能を<strong>探す → 特定する → 接触する → 管理する</strong>のワークフローで整理。次の 4-1 で「これがなぜ価値なのか」に進みます。</p>
+        </header>
+
+        <section class="block reveal">
+          <h2>🔁 全体ワークフロー（5ステップ）</h2>
+          <p class="muted">仕入れ営業の業務フローを、WHEREの機能がどう支えるかで描いたもの。1つのプロダクトとして滑らかに繋がる。</p>
+          <div class="workflow">
+            <div class="step">
+              <span class="num">1</span>
+              <div class="ico">🛰️</div>
+              <h4>候補地を探す</h4>
+              <p>衛星画像×AIで対象エリアの空地・古家・遊休地を面で抽出</p>
+            </div>
+            <div class="step">
+              <span class="num">2</span>
+              <div class="ico">🔎</div>
+              <h4>地権者を特定</h4>
+              <p>登記情報と紐付けて、所有者の住所まで自動で割り出す</p>
+            </div>
+            <div class="step">
+              <span class="num">3</span>
+              <div class="ico">✉️</div>
+              <h4>DMで接触</h4>
+              <p>AI手書き風DMを送付。業界平均の50倍の返信率（約1%）</p>
+            </div>
+            <div class="step">
+              <span class="num">4</span>
+              <div class="ico">📞</div>
+              <h4>反応を管理</h4>
+              <p>返信・架電・商談のステータスを一元管理し交渉に集中</p>
+            </div>
+            <div class="step">
+              <span class="num">5</span>
+              <div class="ico">🗃️</div>
+              <h4>組織に蓄積</h4>
+              <p>地権者DBとして残し、担当者異動でも資産が消えない</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="block reveal">
+          <h2>🧱 機能カタログ ── 4クラスタで把握</h2>
+
+          <div class="feature-cluster">
+            <div class="cluster-head">
+              <span class="badge">🛰️</span>
+              <div>
+                <h3>クラスタ① 探索（Detect）</h3>
+                <div class="sub">市場前の用地を、地図上で面として見つけ出す</div>
+              </div>
+            </div>
+            <div class="feat-list">
+              <div class="feat-item">
+                <h4>衛星画像解析</h4>
+                <p>光学・SAR等の衛星画像をAIで解析し、土地の利用状況を判定。</p>
+              </div>
+              <div class="feat-item">
+                <h4>候補地抽出</h4>
+                <p>「空地」「古家」「遊休地」「低利用地」などタイプ別に絞り込み。</p>
+              </div>
+              <div class="feat-item">
+                <h4>条件指定検索</h4>
+                <p>エリア・面積・用途地域・接道などで条件絞り込み。事業用件に直結。</p>
+              </div>
+              <div class="feat-item">
+                <h4>地図ビュー</h4>
+                <p>候補地を地図上に重ねて表示。航空写真・地形と合わせて評価可能。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-cluster">
+            <div class="cluster-head">
+              <span class="badge">🔎</span>
+              <div>
+                <h3>クラスタ② 特定（Identify）</h3>
+                <div class="sub">候補地の所有者を自動で名寄せ・特定する</div>
+              </div>
+            </div>
+            <div class="feat-list">
+              <div class="feat-item">
+                <h4>登記情報の自動取得</h4>
+                <p>法務局の登記情報と連動。手作業の謄本取得から解放。</p>
+              </div>
+              <div class="feat-item">
+                <h4>所有者名寄せ</h4>
+                <p>個人・法人の所有者を特定し、住所まで紐付ける。</p>
+              </div>
+              <div class="feat-item">
+                <h4>商業登記突合</h4>
+                <p>法人所有の場合、代表者・所在地も合わせて把握。</p>
+              </div>
+              <div class="feat-item">
+                <h4>近隣地権者の俯瞰</h4>
+                <p>複数筆をまたいで保有する地主など、隣接関係を視覚化。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-cluster">
+            <div class="cluster-head">
+              <span class="badge">✉️</span>
+              <div>
+                <h3>クラスタ③ 接触（Reach）</h3>
+                <div class="sub">所有者に開封・返信される確率の高いアプローチを実行</div>
+              </div>
+            </div>
+            <div class="feat-list">
+              <div class="feat-item">
+                <h4>AI手書き風DM生成</h4>
+                <p>所有者の属性・地域性を踏まえた文面を自動生成。手書き感ある印刷。</p>
+              </div>
+              <div class="feat-item">
+                <h4>DM送付ワークフロー</h4>
+                <p>宛名印字〜投函手配まで一気通貫。営業の動線から切り出す。</p>
+              </div>
+              <div class="feat-item">
+                <h4>反応トラッキング</h4>
+                <p>返信・着電・連絡手段別の反応を集計。次の手を組み立てる。</p>
+              </div>
+              <div class="feat-item">
+                <h4>パフォーマンス分析</h4>
+                <p>送付対象セグメント別の返信率を可視化し、文面・タイミングを最適化。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-cluster">
+            <div class="cluster-head">
+              <span class="badge">🗃️</span>
+              <div>
+                <h3>クラスタ④ 蓄積（Retain）</h3>
+                <div class="sub">人ではなく組織に、地権者ネットワークを残す</div>
+              </div>
+            </div>
+            <div class="feat-list">
+              <div class="feat-item">
+                <h4>地権者DB</h4>
+                <p>接触履歴・温度感・売却意向を地権者単位で蓄積。</p>
+              </div>
+              <div class="feat-item">
+                <h4>商談ステージ管理</h4>
+                <p>初回接触〜売却検討〜契約まで、CRM的にステージ管理。</p>
+              </div>
+              <div class="feat-item">
+                <h4>担当者引継ぎ</h4>
+                <p>退職・異動時も履歴ごと引き継げる。組織知が消えない。</p>
+              </div>
+              <div class="feat-item">
+                <h4>レポーティング</h4>
+                <p>仕入れKPI（接触数・商談数・受注数）を経営層にも可視化。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="block reveal">
+          <h2>🗺 機能 × 業務シーンの対応</h2>
+          <p class="muted">どの機能がどの仕入れ業務で効くかの早見表。次章のユースケースとも対応。</p>
+          <div class="card-grid" style="margin-top:16px;">
+            <div class="card">
+              <div class="ico">🛰️</div>
+              <h3>マンデベ用地探し</h3>
+              <p>探索クラスタが主役。容積・接道・面積を条件指定で都心の低利用地を抽出。</p>
+            </div>
+            <div class="card">
+              <div class="ico">🏘️</div>
+              <h3>戸建分譲用地</h3>
+              <p>整形地・古家リストを地図ビューで一望。所有者特定までセット。</p>
+            </div>
+            <div class="card">
+              <div class="ico">🏚️</div>
+              <h3>空き家・古家仕入れ</h3>
+              <p>「相続発生前」の長期保有空き家を識別。接触クラスタで先回り。</p>
+            </div>
+            <div class="card">
+              <div class="ico">☀️</div>
+              <h3>太陽光用地</h3>
+              <p>傾斜・連系距離・遊休地条件で抽出。ブローカー手数料分の利幅を確保。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="block reveal">
+          <div class="callout info">
+            <h4>🧭 4-1への橋渡し</h4>
+            <p>機能の輪郭が見えたら、次は「<strong>この機能群が業界の構造課題をどう解決するか</strong>」 ── 3つのコア価値で整理します。<a href="chapter4-1.html" style="color:var(--color-main); font-weight:600;">→ 4-1. WHEREの3つのコア価値へ</a></p>
+          </div>
+        </section>
+
+        <nav class="page-nav">
+          <a class="prev" href="chapter3.html">&nbsp;3. 業界の構造課題</a>
+          <a class="next" href="chapter4-1.html">4-1. 3つのコア価値&nbsp;</a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/memo.js"></script>
+</body>
+</html>

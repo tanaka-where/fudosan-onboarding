@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>5. 重要用語集 | WHERE Onboarding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/reset.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+</head>
+<body data-page-id="glossary">
+  <div class="app">
+    <aside id="sidebar" data-active="glossary"></aside>
+
+    <main class="main">
+      <div class="container">
+        <header class="page-head reveal">
+          <p class="eyebrow">Chapter 5</p>
+          <h1><span class="emoji">📚</span>重要用語集</h1>
+          <p class="lead">業界用語・WHERE固有語を約50語、カテゴリ別に。検索とインクリメンタル絞り込み付き。</p>
+        </header>
+
+        <section class="block">
+          <div class="glossary-controls">
+            <input id="search" class="glossary-search" type="search" placeholder="🔍 用語名・説明・カテゴリで絞り込み..." />
+          </div>
+          <div id="filters" class="row" style="margin-bottom:24px;"></div>
+          <div id="glossary-root"></div>
+        </section>
+
+        <nav class="page-nav">
+          <a class="prev" href="chapter4-3.html">&nbsp;4-3. 顧客の声</a>
+          <a class="next" href="quiz.html">6. 理解度チェック&nbsp;</a>
+        </nav>
+      </div>
+    </main>
+  </div>
+
+  <div id="term-modal" class="glossary-modal" role="dialog" aria-modal="true">
+    <div class="modal-body"></div>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/memo.js"></script>
+  <script src="../assets/js/glossary.js"></script>
+</body>
+</html>
